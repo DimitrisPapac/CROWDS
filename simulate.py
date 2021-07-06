@@ -30,7 +30,8 @@ def parse_graph_file(filepath: Union[str, bytes]) -> list[list[int]]:
                 max_num_of_columns = num_of_columns[-1]
 
             graph.append([int(x) for x in tokens])
-            if any([(x != 0 and x != 1) for x in graph[-1]]):
+            # Note: Generator object allows for short-circuit evaluation of any.
+            if any((x != 0 and x != 1) for x in graph[-1]):
                 raise Exception("Graph file entries must be binary (i.e., 0 or 1).")
 
         for i in range(len(graph)):
