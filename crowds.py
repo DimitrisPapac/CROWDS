@@ -108,7 +108,7 @@ def is_symmetric(a: List[List[int]]) -> bool:
 
 
 # A function for performing a single simulation run of CROWDS for the given parameters.
-def run(phi: float,
+def simulate(phi: float,
         initiator: int,
         graph: List[List[int]],
         corrupted_users: Set[int],
@@ -189,5 +189,5 @@ if __name__ == "__main__":  # If the module is run directly as a standalone prog
         graph = parse_graph_file(graph_file)
         for i in range(len(graph)):
             graph[i][i] = 1
-        result = run(phi, initiator, graph, corrupted_users, broken_paths, fix_strategy)
+        result = simulate(phi, initiator, graph, corrupted_users, broken_paths, fix_strategy)
         print(f"User {result} delivers message to web server.")
