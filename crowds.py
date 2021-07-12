@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from typing import Union
+from typing import Union, List, Set
 
 ALLOWABLE_STRATEGIES = {"last-honest", "initiator"}
 
 
 # A function for parsing a file containing the graph's adjacency matrix.
-def parse_graph_file(filepath: Union[str, bytes]) -> list[list[int]]:
+def parse_graph_file(filepath: Union[str, bytes]) -> List[List[int]]:
     """
     A function for parsing a file containing the network's graph.
 
@@ -15,7 +15,7 @@ def parse_graph_file(filepath: Union[str, bytes]) -> list[list[int]]:
         filepath (Union[str, bytes]) -- the path to the file containing the network's graph.
 
     Returns:
-        list[list[int]] -- the adjacency matrix representing the network of jondos.
+        List[List[int]] -- the adjacency matrix representing the network of jondos.
     """
     with open(filepath, mode="r", encoding="utf-8") as f:
         rows = f.readlines()
@@ -43,7 +43,7 @@ def parse_graph_file(filepath: Union[str, bytes]) -> list[list[int]]:
     return graph
 
 
-def parse_corrupt_users_file(filepath: Union[str, bytes]) -> set[int]:
+def parse_corrupt_users_file(filepath: Union[str, bytes]) -> Set[int]:
     """
     A function for parsing a file containing the corrupt users' identities.
 
@@ -51,7 +51,7 @@ def parse_corrupt_users_file(filepath: Union[str, bytes]) -> set[int]:
         filepath (Union[str, bytes]) -- the path to the file containing the corrupt users' identities.
 
     Returns:
-        set[int] -- The set of the ids of all corrupt jondos in the network.
+        Set[int] -- The set of the ids of all corrupt jondos in the network.
     """
     with open(filepath, mode="r", encoding="utf-8") as f:
         rows = f.readlines()
@@ -67,7 +67,7 @@ def parse_corrupt_users_file(filepath: Union[str, bytes]) -> set[int]:
     return jondo_ids
 
 
-def parse_initiators_file(filepath: Union[str, bytes]) -> list[int]:
+def parse_initiators_file(filepath: Union[str, bytes]) -> List[int]:
     """
     A function for parsing a file containing the initiators' identities for each simulation.
 
@@ -75,7 +75,7 @@ def parse_initiators_file(filepath: Union[str, bytes]) -> list[int]:
         filepath (Union[str, bytes]) -- the path to the file containing the initiator's identities identities.
 
     Returns:
-        list[int] -- A list coprising of the jondo ids that will serve as initiators in each protocol run.
+        List[int] -- A list coprising of the jondo ids that will serve as initiators in each protocol run.
     """
     with open(filepath, mode="r", encoding="utf-8") as f:
         rows = f.readlines()
@@ -91,12 +91,12 @@ def parse_initiators_file(filepath: Union[str, bytes]) -> list[int]:
     return initiators
 
 
-def is_symmetric(a: list[list[int]]) -> bool:
+def is_symmetric(a: List[List[int]]) -> bool:
     """
     A function for checking if a matrix is symmetric.
 
     Parameters:
-        a (list[list[int]]) -- the matrix in question, represented as a list of lists.
+        a (List[List[int]]) -- the matrix in question, represented as a list of lists.
 
     Returns:
         bool -- True iff the input matrix is symmetric.
@@ -110,8 +110,8 @@ def is_symmetric(a: list[list[int]]) -> bool:
 # A function for performing a single simulation run of CROWDS for the given parameters.
 def run(phi: float,
         initiator: int,
-        graph: list[list[int]],
-        corrupted_users: set[int],
+        graph: List[List[int]],
+        corrupted_users: Set[int],
         broken_paths: int = 0,
         fix_strategy:str = "last-honest") -> int:
     """
@@ -120,8 +120,8 @@ def run(phi: float,
     Parameters:
         phi (float) -- The (constant) probability of forwarding a request to a neighboring jondo.
         initiator (int) -- The jondo from which the protocol starts.
-        graph (list[list[int]]) -- The adjacency matrix representing the network.
-        corrupted_users (set[int]) -- The set of corrupted users in the network.
+        graph (List[List[int]]) -- The adjacency matrix representing the network.
+        corrupted_users (Set[int]) -- The set of corrupted users in the network.
 
     Keyword arguments:
         broken_paths (int) -- The maximum allowable number of destroyed paths (default: 0).

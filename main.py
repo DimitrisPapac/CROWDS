@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from simulate import *
+from crowds import *
 
 
 def main():
